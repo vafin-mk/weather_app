@@ -16,6 +16,6 @@ class WeatherView @JvmOverloads constructor(
     override fun inputObservable(): Observable<String> = Observable.never()
 
     override fun updateWeatherInformation(model: WeatherModel) {
-        
+
     }
 }
