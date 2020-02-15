@@ -24,6 +24,7 @@ class WeatherPresenterImpl @Inject constructor(
 
     override fun bindView(view: WeatherView) {
         view.inputObservable()
+            .filter { it.isNotBlank() }
             .flatMapSingle { input -> weatherRequest(input) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ weather ->

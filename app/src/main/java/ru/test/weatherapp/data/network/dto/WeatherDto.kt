@@ -1,4 +1,4 @@
-package ru.test.weatherapp.data.database.dto
+package ru.test.weatherapp.data.network.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class WeatherDto(
     @JsonProperty(value = "coord") val coordinates: WeatherCoordDto?,
-    @JsonProperty(value = "main") val temperatureInfo: WeatherInfoDto,
-    @JsonProperty(value = "wind") val windInfo: WindDto?
+    @JsonProperty(value = "main") val temperatureInfo: WeatherInfoDto?,
+    @JsonProperty(value = "wind") val windInfo: WindDto?,
+    @JsonProperty(value = "dt") val updateDate: Long?
 )
 
 data class WeatherCoordDto(

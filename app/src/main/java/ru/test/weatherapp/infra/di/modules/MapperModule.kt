@@ -2,7 +2,7 @@ package ru.test.weatherapp.infra.di.modules
 
 import dagger.Binds
 import dagger.Module
-import ru.test.weatherapp.data.database.dto.WeatherDto
+import ru.test.weatherapp.data.network.dto.WeatherDto
 import ru.test.weatherapp.data.mapper.WeatherApiMapper
 import ru.test.weatherapp.domain.entity.WeatherData
 import ru.test.weatherapp.infra.Mapper

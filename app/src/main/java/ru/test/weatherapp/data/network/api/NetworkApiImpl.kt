@@ -2,7 +2,7 @@ package ru.test.weatherapp.data.network.api
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import ru.test.weatherapp.data.database.dto.WeatherDto
+import ru.test.weatherapp.data.network.dto.WeatherDto
 import ru.test.weatherapp.domain.entity.MapPosition
 import ru.test.weatherapp.infra.di.ApiKey
 import javax.inject.Inject
@@ -13,12 +13,12 @@ class NetworkApiImpl @Inject constructor(
 ): NetworkApi {
 
     override fun weatherByPosition(position: MapPosition): Single<WeatherDto> {
-        return restClient.weatherByPosition(position.latitude, position.longitude, apiKey)
+        return restClient.weatherByPosition(position.latitude, position.longitude, apiKey, "metric")
             .subscribeOn(Schedulers.io())
     }
 
     override fun weatherByAddress(address: String): Single<WeatherDto> {
-        return restClient.weatherByAddress(address, apiKey)
+        return restClient.weatherByAddress(address, apiKey, "metric")
             .subscribeOn(Schedulers.io())
     }
 }
