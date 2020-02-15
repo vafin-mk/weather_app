@@ -1,7 +1,8 @@
-package ru.test.weatherapp
+package ru.test.weatherapp.presentation.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.test.weatherapp.R
 
 class MainActivity : AppCompatActivity() {
 
