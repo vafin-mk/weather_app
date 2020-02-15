@@ -1,6 +1,7 @@
 package ru.test.weatherapp.presentation.mapper
 
 import android.content.Context
+import android.util.Log
 import ru.test.weatherapp.R
 import ru.test.weatherapp.domain.entity.WeatherData
 import ru.test.weatherapp.infra.Mapper

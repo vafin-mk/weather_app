@@ -1,6 +1,7 @@
 package ru.test.weatherapp.presentation.presenter
 
 import android.util.Log
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,13 +26,7 @@ class WeatherPresenterImpl @Inject constructor(
     override fun bindView(view: WeatherView) {
         view.inputObservable()
             .filter { it.isNotBlank() }
-            .flatMapSingle { input -> weatherRequest(input) }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ weather ->
-                view.updateWeatherInformation(weather)
-            }, { error ->
-                Log.e("WeatherApp", "Failed to fetch weather information", error)
-            })
+            .subscribe { input -> weatherRequest(input, view) }
             .autoDispose()
     }
 
@@ -39,14 +34,21 @@ class WeatherPresenterImpl @Inject constructor(
         subscriptions.clear()
     }
 
-    private fun weatherRequest(input: String): Single<WeatherModel> {
+    private fun weatherRequest(input: String, view: WeatherView) {
         val mapPosition = MapPosition.fromString(input)
         val request = if (mapPosition == null) {
             weatherByAddress.getWeather(input)
         } else {
             weatherByPosition.getWeather(mapPosition)
         }
-        return request.map { weatherMapper.map(it) }
+        request.map { weatherMapper.map(it) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ weather ->
+                view.updateWeatherInformation(weather)
+            }, { error ->
+                Log.e("WeatherApp", "Failed to fetch weather information", error)
+            })
+            .autoDispose()
     }
 
     private fun Disposable.autoDispose() = subscriptions.add(this)

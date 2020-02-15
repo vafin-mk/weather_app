@@ -11,11 +11,13 @@ data class WeatherDto(
     @JsonProperty(value = "dt") val updateDate: Long?
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class WeatherCoordDto(
     @JsonProperty(value = "lon") val longitude: Double?,
     @JsonProperty(value = "lat") val latitude: Double?
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class WeatherInfoDto(
     @JsonProperty(value = "temp") val temperature: Double?,
     @JsonProperty(value = "feels_like") val feelTemperature: Double?,
@@ -25,6 +27,7 @@ data class WeatherInfoDto(
     @JsonProperty(value = "humidity") val humidity: Int?
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class WindDto(
     @JsonProperty("speed") val speed: Double?,
     @JsonProperty("deg") val degree: Int?

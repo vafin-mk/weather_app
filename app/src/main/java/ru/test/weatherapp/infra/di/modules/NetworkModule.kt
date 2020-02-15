@@ -26,7 +26,7 @@ class NetworkModule {
     fun provideRestClient(httpClient: OkHttpClient): RestApi {
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://api.openweathermap.org/data/2.5/")
+            .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(JacksonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClient)

@@ -12,7 +12,8 @@ import javax.inject.Singleton
     UseCaseModule::class,
     NetworkModule::class,
     AppModule::class,
-    RepositoryModule::class
+    RepositoryModule::class,
+    DatabaseModule::class
 ])
 interface WeatherGraph {
 

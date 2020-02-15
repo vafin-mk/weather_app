@@ -19,6 +19,7 @@
             android:id="@+id/searchInput"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:hint="@string/search_input_hint"
             android:layout_weight="1"/>
 
         <FrameLayout
