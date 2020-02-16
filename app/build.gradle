@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 28
@@ -51,6 +52,39 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
     //tests
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'io.mockk:mockk:1.9.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+task jacocoUnitTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    def coverageSourceDirs = [
+            "src/main/java"
+    ]
+    def fileFilter = [
+            '**/infra/di/**',
+            '**/presentation/ui/**',
+            '**/presentation/model/**',
+            '**/domain/entity/**',
+            '**/data/network/dto/**',
+            '**/data/database/dto/**',
+            '**/R.class',
+            '**/R$*.class',
+            '**/*$ViewInjector*.*',
+            '**/*$ViewBinder*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*'
+    ]
+    def javaClasses = fileTree(dir: "$buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    classDirectories.from(files([javaClasses, kotlinClasses]))
+    additionalSourceDirs.from(files(coverageSourceDirs))
+    sourceDirectories.from(files(coverageSourceDirs))
+    executionData.from(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec"
+    ]))
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
 }
